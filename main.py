@@ -13,10 +13,9 @@ from bson.objectid import ObjectId
 import os
 
 app = Flask(__name__)
-app.secret_key = os.urandom(24).hex()
-
+app.secret_key = os.environ.get("FLASK_SECRET_KEY", os.urandom(24).hex()) # Fallback for local
 # MongoDB setup
-client = pymongo.MongoClient("mongodb+srv://sitanagapavani65:puppy1334@cluster0.buv6uml.mongodb.net/")
+client = pymongo.MongoClient(os.environ.get("MONGO_URI","mongodb+srv://sitanagapavani65:puppy1334@cluster0.buv6uml.mongodb.net/"))
 db = client["medicine_recommendation"]
 users_collection = db["users"]
 feedback_collection = db["feedback"]
