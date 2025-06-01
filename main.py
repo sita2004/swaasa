@@ -11,7 +11,7 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from bson.objectid import ObjectId
 import os
-
+import joblib
 app = Flask(__name__)
 app.secret_key = os.environ.get("FLASK_SECRET_KEY", os.urandom(24).hex()) # Fallback for local
 # MongoDB setup
@@ -33,7 +33,7 @@ diets = pd.read_csv("kaggle_dataset/diets.csv")
 symptom_relationships = pd.read_csv("kaggle_dataset/symptoms_df.csv")
 
 # Load the trained model
-Rf = pickle.load(open('model/RandomForest.pkl', 'rb'))
+Rf = joblib.load(open('model/RandomForest.pkl', 'rb'))
 
 # Symptoms and diseases dictionaries
 symptoms_list = {'itching': 0, 'skin_rash': 1, 'nodal_skin_eruptions': 2, 'continuous_sneezing': 3, 'shivering': 4,
